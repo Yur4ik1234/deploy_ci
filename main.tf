@@ -1,6 +1,6 @@
 
 terraform {
-  required_version =  " 1.4.6 "
+  
   required_providers {
     azurerm = {
       source = "hashicorp/azurerm"
@@ -171,8 +171,8 @@ storage_profile_image_reference {
     disable_password_authentication = true
 
   ssh_keys {
-    path     = "/home/adminuser/.ssh/authorized_keys"
-    key_data = file("~/.ssh/id_rsa.pub")
+    key_data = var.ssh
+    path = "/home/adminuser/.ssh/authorized_keys"
   }
 
    }

@@ -1,4 +1,7 @@
 variable "prefix"{
     type = string
-    default = "tfazure"
+    default = "azure"
 }
+
+variable "ssh"{}
+
