@@ -23,25 +23,14 @@ env:
   TF_VAR_ssh: "${{ secrets.K8S_SSH_PUBLIC }}"
 
 jobs:
-  
-  terraform-plan:
-    name: 'Terraform Plan'
-    runs-on: ubuntu-latest
-    env:
-      #this is needed since we are running terraform with read-only permissions
-      ARM_SKIP_PROVIDER_REGISTRATION: true
-    outputs:
-      tfplanExitCode: ${{ steps.tf-plan.outputs.exitcode }}
-
-
-    steps:
-    # Checkout the repository to the GitHub Actions runner
+  unit-test:
+    name: "Run Tests"
     - name: Checkout
       uses: actions/checkout@v3
-
+    # Unit test for deploying docker image
     - name: Pull Docker image
       run: docker pull yeasy/simple-web
-
+    steps:
     - name: Run Docker unit test
       run: |
         docker run -d -p 80:80 --name simple-web yeasy/simple-web
@@ -56,6 +45,40 @@ jobs:
           echo "Unit test failed!"
           exit 1
         fi
+
+  terraform-plan:
+    name: 'Terraform Plan'
+    runs-on: ubuntu-latest
+    env:
+      #this is needed since we are running terraform with read-only permissions
+      ARM_SKIP_PROVIDER_REGISTRATION: true
+    outputs:
+      tfplanExitCode: ${{ steps.tf-plan.outputs.exitcode }}
+
+
+    steps:
+    # Checkout the repository to the GitHub Actions runner
+    
+#    - name: Checkout
+#      uses: actions/checkout@v3
+#    # Unit test for deploying docker image
+#    - name: Pull Docker image
+#      run: docker pull yeasy/simple-web
+
+#    - name: Run Docker unit test
+#      run: |
+#        docker run -d -p 80:80 --name simple-web yeasy/simple-web
+#        docker ps
+#        sleep 5 # Wait for the container to start
+#
+#        response=$(curl -s http://localhost:80)
+#        if [[ $response == *"Visit Results"* ]]; then
+#          echo "Unit test passed!"
+#          exit 0
+#        else
+#          echo "Unit test failed!"
+#          exit 1
+#        fi
      
     - name: Checkout
       uses: actions/checkout@v3
@@ -179,19 +202,7 @@ jobs:
       
       run: terraform apply -auto-approve tfplan
 
-    # Store k8s config
-    #
-  #  - name: Get public ip addr
-  #    id: pub-ip
-  #    
-  #    run: |
-  #      EOF=$(dd if=/dev/urandom bs=15 count=1 status=none | base64)
-  #      PUBLIC_IP=$(az vmss list-instance-public-ips --name example-vmss  --resource-group azure-resource_group | python3 parser.py)
-  #
-  #      echo "pub-ip<<$EOF" >> $GITHUB_OUTPUT
-  #      echo "$PUBLIC_IP" >> $GITHUB_OUTPUT
-  #      echo "$EOF" >> $GITHUB_OUTPUT
-
+    # deploying ansible 
   ansible-deploy:
     name: 'Deploy ansible playbook'
     runs-on: ubuntu-latest  

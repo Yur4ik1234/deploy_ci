@@ -1,7 +1,7 @@
 #!/bin/bash
 
 terraform init
-#ngnbnb
+#stable version
 
 terraform apply -auto-approve 
 
