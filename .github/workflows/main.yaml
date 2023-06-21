@@ -25,12 +25,14 @@ env:
 jobs:
   unit-test:
     name: "Run Tests"
+    runs-on: ubuntu-latest
+    steps:
     - name: Checkout
       uses: actions/checkout@v3
     # Unit test for deploying docker image
     - name: Pull Docker image
       run: docker pull yeasy/simple-web
-    steps:
+    
     - name: Run Docker unit test
       run: |
         docker run -d -p 80:80 --name simple-web yeasy/simple-web
