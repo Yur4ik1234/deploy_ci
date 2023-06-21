@@ -60,28 +60,7 @@ jobs:
 
 
     steps:
-    # Checkout the repository to the GitHub Actions runner
-    
-#    - name: Checkout
-#      uses: actions/checkout@v3
-#    # Unit test for deploying docker image
-#    - name: Pull Docker image
-#      run: docker pull yeasy/simple-web
-
-#    - name: Run Docker unit test
-#      run: |
-#        docker run -d -p 80:80 --name simple-web yeasy/simple-web
-#        docker ps
-#        sleep 5 # Wait for the container to start
-#
-#        response=$(curl -s http://localhost:80)
-#        if [[ $response == *"Visit Results"* ]]; then
-#          echo "Unit test passed!"
-#          exit 0
-#        else
-#          echo "Unit test failed!"
-#          exit 1
-#        fi
+   
      
     - name: Checkout
       uses: actions/checkout@v3
