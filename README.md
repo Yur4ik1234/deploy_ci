@@ -15,3 +15,4 @@ In *main.tf* I wrote down all infrasructure which includes:
 
 In */ansible/playbook.yml* I deploy a docker container in my scale set
 
+csd
