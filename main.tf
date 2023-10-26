@@ -11,7 +11,7 @@ terraform {
     storage_account_name = "yurahaidar"
     container_name       = "tfstate"
     key                  = "terraform.tfstate"
-    access_key           =  "dc+SXaUh9AMgPhp4TYx9N4v7+WdL4TeRFqdXLXGyo7tuJC/6sCSyFfhc5Xtjf3t7ur1ky4MR3dll+ASt4slPBA=="
+    #access_key           =  "dc+SXaUh9AMgPhp4TYx9N4v7+WdL4TeRFqdXLXGyo7tuJC/6sCSyFfhc5Xtjf3t7ur1ky4MR3dll+ASt4slPBA=="
     #use_oidc             = true
   }
 }
